@@ -1,0 +1,56 @@
+package webproject;
+import java.util.*;
+public class UsersOperation {
+	public void createTable(JDBCKonnekt jk) throws Exception {
+        String sql = "create table users"
+                + "( "
+                + "username varchar(10) not null,"
+                + "pass varchar(8) not null default 888888,"
+                + "primary key (username)"					 //设置主键了
+                + ");";
+        jk.executeSql(sql);
+    }
+	public void addUsers(Users u,JDBCKonnekt jk)
+	{
+		String sql = "insert into users (username,pass) values('"+u.getUsername()+"','"+u.getPassword()+"');";
+		//System.out.println(sql);
+		jk.executeSql(sql);
+		//System.out.println("Yeah,that's right.Oh yeah man!\n");
+	}
+	public void removeTable(JDBCKonnekt jk)
+	{
+		String sql = "drop table users;";
+		jk.executeSql(sql);
+	}
+	public int delUser(String username,JDBCKonnekt jk){
+		int ans = 1;
+		List<Map<String,Object>> uList;
+		String sql1 = "select * from users where username='"+username+"';";
+		uList=jk.query(sql1);
+		if(uList.isEmpty())
+		{
+			System.out.println("No User Found!");
+			return 0;
+		}
+        String sql = "delete from users where username like '"+username+"';";
+        jk.executeSql(sql);
+        return ans;
+    }
+	public List<Users> getUsers(JDBCKonnekt jk){
+		String sql = "select * from users;";
+		List<Map<String,Object>> list = jk.query(sql);	//实现那个查询哒
+		
+		List<Users> uList = new ArrayList<Users>();		//存储的结果。
+		Users user = null;
+		for(Map<String,Object> map:list){
+            user = new Users((String)map.get("username"),(String)map.get("pass"));
+            uList.add(user);
+        }
+		return uList;
+	}
+	
+	public int modifyUser(String username)
+	{
+		int flag = -1;
+	}
+}

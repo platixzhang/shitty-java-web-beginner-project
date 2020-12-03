@@ -1,0 +1,80 @@
+package webproject;
+import java.util.*;
+public class PersonOperation {
+	public void createTable(JDBCKonnekt jk) throws Exception {
+		String sql = "create table person"
+                + "("
+                + "username varchar(10) not null,"
+                + "name varchar(20) not null,"
+                + "age int,"
+                + "teleno char(11),"
+                + "primary key (name)"							//主键在这
+                + ")";
+        jk.executeSql(sql);
+    }
+	public void addPerson(Person p,JDBCKonnekt jk)
+	{
+		String sql = "insert into person(username,name,age,teleno) values('"
+					+p.getUsername()+"','"+p.getName()+"',"+p.getAge()+",'"+p.getTeleno()+"');";
+		jk.executeSql(sql);
+	}
+	public void delPerson(String username,JDBCKonnekt jk){
+        String sql = "delete from person where username like '"+username+"';";
+        jk.executeSql(sql);
+    }
+	public void removeTable(JDBCKonnekt jk)
+	{
+		String sql = "drop table person;";
+		jk.executeSql(sql);
+	}
+	public int checkPerson(JDBCKonnekt jk,Person p)
+	{
+		int flag = -1;
+		List<Map<String,Object>> uList,pList;
+		String sql1 = "select * from person where username='"+p.getUsername()+"';";
+		pList=jk.query(sql1);
+		if(pList.isEmpty())
+		{
+			//Person表里莫得这个
+			String sql2 = "select * from users where username='"+p.getUsername()+"';";
+			uList=jk.query(sql2);
+			if(uList.isEmpty())
+			{
+				//没救了，啥都没有
+				String sql3 = "insert into users(username,pass) values ('"+p.getUsername()+"','888888');";
+				jk.executeSql(sql3);
+				return 1;
+			}
+			//Person里头有这个
+			else
+			{
+				String sql4 = "insert into person(username,name,age,teleno) values('"
+						+p.getUsername()+"','"+p.getName()+"',"+p.getAge()+",'"+p.getTeleno()+"');";
+				jk.executeSql(sql4);
+				return 1;
+			}
+		}
+		else
+		{
+			String sql5 = "update person set name='"+p.getName()+"',age="+p.getAge()+
+					",teleno='"+p.getTeleno()+"' where username='"+p.getUsername()+"';";
+			jk.executeSql(sql5);
+			flag = 1;
+		}
+		return flag;
+	}
+	public List<Person> getPerson(JDBCKonnekt jk){
+        String sql = "select * from person";
+        List<Map<String,Object>> list = jk.query(sql);
+        //存他娘的。
+        List<Person> personList = new ArrayList<>();
+        Person person = null;
+        for(Map<String,Object> map:list){
+        	//System.out.println("Getting Person!\n");
+        	//System.out.println((String)map.get("username")+" "+(String)map.get("name"));
+            person = new Person((String)map.get("username"),(String)map.get("name"),(Integer)map.get("age"),(String)map.get("teleno"));
+            personList.add(person);
+        }
+        return personList;
+    }
+}

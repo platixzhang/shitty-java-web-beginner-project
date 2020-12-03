@@ -1,0 +1,35 @@
+package webproject;
+import java.util.List;
+
+public class PersonService {
+	private PersonOperation po = new PersonOperation();
+    public int addOrModifyPerson(Person person, JDBCKonnekt c)
+    {
+    	int ans=-1;
+        try{
+            ans = po.checkPerson(c,person);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ans;
+    }
+    public int delPerson(String username, JDBCKonnekt c)
+    {
+    	int ans=1;
+        try{
+            po.delPerson(person.getUsername(),c);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ans;
+    }
+    public List<Person> getPerson(JDBCKonnekt c) {
+    	List<Person> list = null;
+        try{
+            list = po.getPerson(c);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+	}
+}

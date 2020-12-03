@@ -1,0 +1,22 @@
+package webproject;
+import javax.servlet.ServletContext;
+@WebServlet(name = "/delUserServlet")
+public class DelUserServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("utf-8");
+        String username = request.getParameter("username2");
+        UsersService service = new UsersServiceImpl();
+        ServletContext sc = getServletConfig().getServletContext();
+        int operatorResult = service.delUser(username,(DButil)sc.getAttribute("DB"));
+        request.setAttribute("returnType",1);
+        request.setAttribute("operatorResult",operatorResult);
+        request.setAttribute("username",username);
+        //5.Ìø×ªµ½
+        //response.sendRedirect(request.getContextPath()+"/operateResultServlet");
+        request.getRequestDispatcher("/result.jsp").forward(request,response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request,response);
+    }
+}

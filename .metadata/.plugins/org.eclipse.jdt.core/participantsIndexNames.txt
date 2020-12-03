@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+D:\CSRelated\AndroidDeveloping\lab2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\468668458.index
+\javawebproj\src
+D:\CSRelated\AndroidDeveloping\lab2\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2607325504.index
+\javawebproj\src

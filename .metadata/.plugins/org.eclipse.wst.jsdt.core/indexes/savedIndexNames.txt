@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+D:\CSRelated\AndroidDeveloping\lab2\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3684511061.index
+468668458.index
+130925590.index
+1539924435.index
+2957958535.index
+3889822502.index
+3268696801.index

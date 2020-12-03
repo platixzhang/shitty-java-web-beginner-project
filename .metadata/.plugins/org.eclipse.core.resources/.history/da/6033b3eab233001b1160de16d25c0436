@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html;charset=utf-8"
+    pageEncoding="utf-8"%>
+<%
+request.setCharacterEncoding("utf-8");
+%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=utf-8" language="java" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Add Person Result</title>
+</head>
+<body>
+	<center><h3>Add Person Result</h3></center>
+	<c:choose>
+        <c:when test="${returnType==0&&operatorResult==0}">
+            <h2 align="center">person:${username}&nbsp;Insert Failed!</h2>
+        </c:when>
+        <c:when test="${returnType==0&&operatorResult==1}">
+            <h2 align="center">person:${username}&nbsp;Insert Successful!</h2>
+        </c:when>
+        <c:when test="${returnType==0&&operatorResult==2}">
+            <h2 align="center">person:${username}&nbsp;Update Failed!</h2>
+        </c:when>
+        <c:when test="${returnType==0&&operatorResult==3}">
+            <h2 align="center">person:${username}&nbsp;Update Successful!</h2>
+        </c:when>
+        <c:when test="${returnType==1&&operatorResult==0}">
+            <h2 align="center">user:${username}&nbsp;Delete Failed!</h2>
+        </c:when>
+        <c:when test="${returnType==1&&operatorResult==1}">
+            <h2 align="center">user:${username}&nbsp;Delete Successful!</h2>
+        </c:when>
+        <c:otherwise>
+            <h4>Error Happened!</h4>
+        </c:otherwise>
+    </c:choose>
+    <form action="${pageContext.request.contextPath}/delUserServlet" onsubmit="return checkSubmit2()" method="post">
+    <div class="form-group" style="text-align: center">
+	<center>
+              <input class="btn btn-primary" type="submit" value="SUBMIT" />
+              <input class="btn btn-default" type="reset" value="RESET" />
+    </center>
+    </div>
+</body>
+</html>

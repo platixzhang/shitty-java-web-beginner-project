@@ -1,0 +1,7 @@
+<classpath>
+  <container id="javawebproj!org.eclipse.jst.j2ee.internal.web.container">
+    <entry id="D:/CSRelated/AndroidDeveloping/lab2/javawebproj/WebRoot/WEB-INF/lib/commons-beanutils-1.8.3.jar">
+      <source-attachment-path>D:/CSRelated/AndroidDeveloping/commons-beanutils-1.9.4-sources.jar</source-attachment-path>
+    </entry>
+  </container>
+</classpath>
